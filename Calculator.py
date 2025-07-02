@@ -20,8 +20,7 @@ Display.grid(row=0, column=1, columnspan=3, sticky='EW')
 Memory = Label(window, fg='lightgrey', bg='white', font='SF 22')
 
 
-# Takes in any digit from 0 to 9 and a decimal point ('.'). Note: This function is slightly complex so if you want I
-# can explain it on a call, though I've tried to explain every line in this
+# Takes in any digit from 0 to 9 and a decimal point ('.').
 def button_click(number):
     # When the calculator is started up, the default output shows '0'. As soon as the user will type any number that's
     # not a decimal point, that digit will replace the zero. It makes more sense for the user to see '9' instead of
@@ -107,9 +106,6 @@ def button_click(number):
     else:
         Display.insert(END, number)
 
-
-# Commented code is how you can find the factorial of a given int number. But math module has factorial() function,
-# so it's better to use that. round() function approximates the given number to the closest int. eg. 3.5! -> 4! -> 24
 def button_fact():
     """p = 1
     ans = round(eval(Display.get().replace('×','*').replace('π','3.1415926535897932').replace('^','**')))
@@ -134,7 +130,7 @@ def button_root():
         Display.delete(0, END)
         Display.insert(0, ans)
     # Square root of negative numbers has no real solution. So button_root() changes the var. func to -1 (error
-    # state). Note: there's no specific reason for -1, even 9847.2 can be an error state but -1 just makes sense to me.
+    # state).
     except ValueError:
         func = -1
         button_equal()
@@ -186,8 +182,6 @@ def button_equal():
         # program run button_equal() again, without the user clicking anything. Here, var. switch is flipped to
         # false, so the elif block runs only once and doesn't cause a recursion loop. It is reset to True after the
         # user receives the error message
-        # Remeber to delete the tuple of errors on line 194, its only there to keep track of errors faced so its easier
-        # to look at cases tested through the program so far
         except (ZeroDivisionError, SyntaxError, NameError):
             switch = False
             func = -1
@@ -239,7 +233,6 @@ def button_clear():
     buttonClear.config(bg='lightgrey')
 
 
-# pn is short for 'positive/negative'.
 def button_pn():
     # Calculates the data in the output box, then inverts the sign on the output.
     p = str(eval(Display.get()))
@@ -264,13 +257,11 @@ def button_mem():
         Memory.config(text=eval(Display.get()))
         buttonMem.config(text='M+')
     # Once the memory is called back in the output box, it clears the memory.
-    #  Should I remove this? Since the user could need the memory output more than 1 time as well.
     else:
         button_click(Memory['text'])
         buttonMem.config(text='M')
         Memory.grid_forget()
 
-# All the buttons on a calc aren't needed at all times, so it can be made available when the user needs it
 def button_expand():
     if buttonExpand['text'] != 'x':    
         buttonPi.grid(row=5, column=5)
@@ -367,7 +358,6 @@ buttonCos = Button(window, pady=5, font='SF 18', text='cos', command=button_cos)
 buttonTan = Button(window, pady=5, font='SF 18', text='tan', command=button_tan)
 
 
-# Added this at the end to set up the calculator
 Display.insert(0, '0')
 
 mainloop()
